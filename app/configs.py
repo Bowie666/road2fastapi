@@ -11,5 +11,13 @@ class Settings(BaseSettings):
     API_V1_STR: str = "/api/v1"
     PROJECT_NAME: str = "A Structure Code"
 
+    DB_USERNAME: str = 'goboy'
+    DB_PASSWORD: str = '123456'
+    DB_HOST: str = 'localhost'
+    DB_PORT: str = '13306'
+    DB_DATABASE: str = 'fastest'
+    DB_CHARSET: str = 'utf8mb4'
+    SQLALCHEMY_DATABASE_URI: str = f'mysql+pymysql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_DATABASE}?charset={DB_CHARSET}'
+
 
 settings = Settings()  # type: ignore
