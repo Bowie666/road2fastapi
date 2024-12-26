@@ -14,11 +14,13 @@ def create_app():
     return app
 
 def initialize_extensions(app: FastAPI):
+    from app.extensions.ext_db import init_db, engine
     from app.extensions.ext_logging import init_logging
     from app.extensions.ext_routers import init_routers
 
-    init_routers(app)
+    init_db(engine)  # 只是测试数据库有没有连接上 fastapi不需要上下文的绑定
     init_logging()
+    init_routers(app)
 
 
 app = create_app()
