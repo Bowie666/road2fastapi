@@ -16,7 +16,9 @@
 │   └── extensions                  # 这里面放扩展
 │   │   ├── ext_logging.py          # 这个是日志的处理方式 甚至可以用到其它的脚本里面 不过需要改一些东西
 │   │   ├── ext_routers.py          # 这个是注册的路由
-│   │   ├── ext_db.py               # 数据库连接及初始化建表 这种方式我很不喜欢 后期考虑别的方式替换
+│   │   ├── ext_db.py               # TODO 数据库连接及初始化建表 这种方式我很不喜欢 后期考虑别的方式替换
+│   │   ├── ext_redis.py            # redis的配置
+│   │   ├── ext_celery.py           # TODO celery的配置 很麻烦 很不优雅 和fastapi很不合拍 以后有好的方式重新处理
 │   │   └── users.py     # 「users」子模块，例如 import app.routers.users
 │   └── internal         # 「internal」是一个「Python 子包」
 │       ├── __init__.py  # 使「internal」成为一个「Python 子包」
