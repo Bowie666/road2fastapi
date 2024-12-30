@@ -1,7 +1,22 @@
 import uvicorn
 from fastapi import FastAPI
+from contextlib import asynccontextmanager
 
 from app.configs import settings
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    from app.extensions.ext_redis import redis_client
+    # 应用启动逻辑：初始化 Redis 连接池
+    print("App is starting and initializing Redis pool...")
+    await redis_client
+    
+    yield  # 应用主逻辑在这里运行
+
+    # 应用关闭逻辑：释放 Redis 连接池
+    print("App is shutting down and closing Redis pool...")
+    await redis_client.close()
 
 
 def create_app():
@@ -10,6 +25,7 @@ def create_app():
         openapi_url=f"{settings.API_V1_STR}/openapi.json",  # 将 API 文档放在自定义路径以避免默认路径被暴露
         # generate_unique_id_function=custom_generate_unique_id,  # TODO 通过自定义逻辑增强路由唯一性或实现更符合业务需求的 ID。
         # docs_url=None,  # 关闭默认的文档路由 TODO 有方法关闭部分接口
+        lifespan=lifespan
     )
     return app
 
