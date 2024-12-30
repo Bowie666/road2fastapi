@@ -24,10 +24,18 @@ class Settings(BaseSettings):
     # 配置Redis连接
     REDIS_HOST: str = 'localhost'
     REDIS_PORT: int = 16379
-    REDIS_DB: int = 0
+    REDIS_DB: int = 1
     REDIS_PASSWORD: Optional[str] = None  # 如果没有密码则为 None
     REDIS_POOL_MAX: int = 10
     REDIS_URL: str = f'redis://{REDIS_HOST}:{REDIS_PORT}/{REDIS_DB}'
+
+    # celery
+    CELERY_BROKER_URL: str = f'redis://{REDIS_HOST}:{REDIS_PORT}/{REDIS_DB}'
+    CELERY_RESULT_BACKEND: str = f'db+mysql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_DATABASE}'
+
+    LOG_FILE: str = 'logs/work.log'
+    LOG_TZ: str = "Asia/Shanghai"
+    LOG_FORMAT: str = '%(asctime)s,%(msecs)d %(levelname)-2s [%(filename)s:%(lineno)d] %(req_id)s %(message)s'
 
 
 settings = Settings()  # type: ignore
