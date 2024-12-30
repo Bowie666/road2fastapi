@@ -9,6 +9,12 @@ from app.configs import settings
 对目录要求很严格 不知道为什么 必须要起名为tasks.py 然后还要在下面注册 autodiscover_tasks
 而且你不这么做 启动任务的时候还看不到你在tasks.py里面写的定时任务
 目前日志问题还没解决 现在执行什么任务都不显示日志
+
+Tips:
+- celery -A app.extensions.ext_celery worker --loglevel=info 
+- celery实例在哪里 就去哪个目录下启动 fastapi的celery太麻烦了
+- 必须要有一个任务是celery_app启动的 不然会报错[Errno 61] Connection refused
+
 '''
 def init_celery():
     # 这个代码是防止报错ModuleNotFoundError: No module named 'MySQLdb' 老毛病了
