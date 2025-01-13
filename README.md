@@ -24,3 +24,8 @@
 │       ├── __init__.py  # 使「internal」成为一个「Python 子包」
 │       └── admin.py     # 「admin」子模块，例如 import app.internal.admin
 ```
+
+
+##### reference
+- fastapi_best_architecture
+- full-stack-fastapi-template
