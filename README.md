@@ -1,4 +1,5 @@
 # road2fastapi
+以后慢慢添加restful db用法
 
 - 写的sql必须要兼容大部分关系型数据库 不要使用某种数据库的特性
 
