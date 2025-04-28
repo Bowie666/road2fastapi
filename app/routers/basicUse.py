@@ -1,6 +1,6 @@
 import logging
 
-from fastapi import APIRouter
+from fastapi import APIRouter, BackgroundTasks
 from celery.result import AsyncResult
 
 from app.models.data import User
@@ -61,3 +61,15 @@ async def get_task_time(task_id: str):
         "successful": task.successful(),
         "value": task.result if task.ready() else None,
     }
+
+# fastapi 自带的后台任务 比其它的应该好用
+def write_notification(email: str, message=""):
+    # with open("log.txt", mode="w") as email_file:
+    #     content = f"notification for {email}: {message}"
+    #     email_file.write(content)
+    print('111')
+
+@router.post("/send-notification/{email}")
+async def send_notification(email: str, background_tasks: BackgroundTasks):
+    background_tasks.add_task(write_notification, email, message="some notification")
+    return {"message": "Notification sent in the background"}
