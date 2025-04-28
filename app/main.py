@@ -4,19 +4,37 @@ from contextlib import asynccontextmanager
 
 from app.configs import settings
 
+# 第一种定时任务方式 简易的后台运行 !!! 要在 lifespan 的最后加上 scheduler.shutdown()，lifespan的前面的 scheduler.start() 要去掉
+# from apscheduler.schedulers.background import BackgroundScheduler
+# from apscheduler.triggers.cron import CronTrigger
+# from apscheduler.triggers.interval import IntervalTrigger
+# def my_daily_task():
+#     print(f"Task is running")
+
+# scheduler = BackgroundScheduler()
+# # trigger = CronTrigger(hour=0, minute=0)  # midnight every day
+# trigger = IntervalTrigger(seconds=2)  # 任务每2秒执行一次
+# scheduler.add_job(my_daily_task, trigger)
+# scheduler.start()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     from app.extensions.ext_redis import redis_client
+    # 第二种定时任务方式
+    # from app.extensions.ext_task import scheduler
+    # from app.tasks.aps_tasks import get_task
     # 应用启动逻辑：初始化 Redis 连接池
     print("App is starting and initializing Redis pool...")
     await redis_client
-    
+    # get_task(scheduler)
+    # scheduler.start()
+
     yield  # 应用主逻辑在这里运行
 
     # 应用关闭逻辑：释放 Redis 连接池
     print("App is shutting down and closing Redis pool...")
     await redis_client.close()
+    # scheduler.shutdown()
 
 
 def create_app():
