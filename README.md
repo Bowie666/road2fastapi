@@ -30,3 +30,4 @@
 ##### reference
 - fastapi_best_architecture
 - full-stack-fastapi-template
+- https://github.com/fastapi-practices/fastapi_scheduler/tree/apscheduler-3.x 这个scheduler封装的真的很好
