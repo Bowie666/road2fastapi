@@ -27,6 +27,7 @@ class Settings(BaseSettings):
     REDIS_DB: int = 1
     REDIS_PASSWORD: Optional[str] = None  # 如果没有密码则为 None
     REDIS_POOL_MAX: int = 10
+    REDIS_TIMEOUT: int = 10
     REDIS_URL: str = f'redis://{REDIS_HOST}:{REDIS_PORT}/{REDIS_DB}'
 
     # celery
@@ -37,5 +38,12 @@ class Settings(BaseSettings):
     LOG_TZ: str = "Asia/Shanghai"
     LOG_FORMAT: str = '%(asctime)s,%(msecs)d %(levelname)-2s [%(filename)s:%(lineno)d] %(req_id)s %(message)s'
 
+    # DateTime
+    DATETIME_TIMEZONE: str = 'Asia/Shanghai'
+
+    # APScheduler
+    APS_COALESCE: bool = False
+    APS_MAX_INSTANCES: int = 3
+    APS_MISFIRE_GRACE_TIME: int = 60
 
 settings = Settings()  # type: ignore
